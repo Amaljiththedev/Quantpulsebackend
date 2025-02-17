@@ -24,3 +24,8 @@ class UserSerializer(serializers.ModelSerializer):
         """
         # Use the create_user method provided by your custom user manager.
         return User.objects.create_user(**validated_data)
+
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)

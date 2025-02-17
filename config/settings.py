@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-
+    "corsheaders",
+    
 
     # Custom apps
     'infrastructure.apps.InfrastructureConfig',  # Our infrastructure layer (custom user model, etc.)
@@ -37,6 +38,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+
+
+
+
 ]
 
 # 🔗 URL Configuration
@@ -138,3 +145,25 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed sessions (default)
+SESSION_COOKIE_NAME = 'sessionid'  # Default session cookie name
+SESSION_COOKIE_AGE = 3600  # Session expiry in seconds (1 hour)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep the session until it expires or user logs out
+
+# Use a secure cookie for sessions in production (optional)
+SESSION_COOKIE_SECURE = False  # Set to True in production if using HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to session cookies
+
+# CSRF Settings (important if your app involves sensitive data)
+CSRF_COOKIE_SECURE = False  # Set to True in production if using HTTPS
+CSRF_COOKIE_HTTPONLY = True  # Prevent JavaScript access to CSRF cookies
